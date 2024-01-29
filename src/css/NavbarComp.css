@@ -1,0 +1,9 @@
+.nav-link-container.active::after {
+  content: "";
+  display: block;
+  border-bottom: 2px solid #ffc107;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
