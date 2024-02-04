@@ -13,6 +13,7 @@ import _ from "lodash";
 import { searchClientDetails } from "../service/clientRequest.ts";
 import { getUserInformation } from "../service/user.ts";
 import { Menu, MenuItem, Button } from "@mui/material";
+import { SiContentful } from "react-icons/si";
 
 const NavbarComp = ({ setClients }) => {
   const navigate = useNavigate();
@@ -80,13 +81,7 @@ const NavbarComp = ({ setClients }) => {
       <Navbar expand="lg" className="bg-dark">
         <Container fluid>
           <Navbar.Brand>
-            <img
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
-              className="mb-2"
-              height="30"
-              width={50}
-            />
+            <SiContentful size={45} className="text-warning"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -95,54 +90,72 @@ const NavbarComp = ({ setClients }) => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link
+              <div
                 className={`${
                   isActive("/pages/dashboard")
-                    ? "active text-warning"
+                    ? "active border-2 border-bottom border-warning"
                     : "text-light"
                 }`}
-                onClick={() => handleNavigation("/pages/dashboard")}
               >
-                Dashboard
-              </Nav.Link>
-              <Nav.Link
-                className={`${
+                <Nav.Link
+                  className={`text-light`}
+                  onClick={() => handleNavigation("/pages/dashboard")}
+                >
+                  Dashboard
+                </Nav.Link>
+              </div>
+              <div
+                className={` ${
                   isActive("/pages/add-client")
-                    ? "active text-warning"
+                    ? "active border-bottom border-warning border-2"
                     : "text-light"
                 }`}
-                onClick={() => handleNavigation("/pages/add-client")}
               >
-                Add Client
-              </Nav.Link>
-              <Nav.Link
+                <Nav.Link
+                  className={`text-light`}
+                  onClick={() => handleNavigation("/pages/add-client")}
+                >
+                  Add Client
+                </Nav.Link>
+              </div>
+              <div
                 className={`${
                   isActive("/pages/client-list")
-                    ? "active text-warning"
+                    ? "active border-warning border-2 border-bottom"
                     : "text-light"
                 }`}
-                onClick={() => handleNavigation("/pages/client-list")}
               >
-                Client List
-              </Nav.Link>
+                <Nav.Link
+                  className="text-light"
+                  onClick={() => handleNavigation("/pages/client-list")}
+                >
+                  Client List
+                </Nav.Link>
+              </div>
             </Nav>
-            <Form className="d-flex mx-3 input-group" style={{ width: 300 }}>
-              <span
-                className="input-group-text cursor-pointer"
-                id="basic-addon1"
-              >
-                <BiSearch size={23} />
-              </span>
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search Contacts"
-                onChange={handleChangeSearch}
-                ref={searchRef}
-              />
-            </Form>
-            <div>
+            <div className="border-end border-2 py-2 border-warning">
+              <div className="d-flex mx-3 input-group" style={{ width: 300 }}>
+                <span
+                  className="input-group-text cursor-pointer"
+                  id="basic-addon1"
+                  style={{ backgroundColor: "#36373f" }}
+                >
+                  <BiSearch size={23} />
+                </span>
+                <input
+                  type="text"
+                  className="form-control"
+                  style={{
+                    backgroundColor: "#36373f",
+                    color: "white",
+                  }}
+                  placeholder="Search"
+                  onChange={handleChangeSearch}
+                  ref={searchRef}
+                />
+              </div>
+            </div>
+            <div className="mx-2 cursor-pointer">
               <div className="d-flex gap-2" onClick={handleClick}>
                 <Avatar
                   alt={userInfo?.name ?? ""}

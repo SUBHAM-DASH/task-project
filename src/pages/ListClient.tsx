@@ -18,6 +18,7 @@ import DeleteDialog from "../components/DeleteDialog.tsx";
 import * as XLSX from "xlsx";
 import { toast } from "react-toastify";
 import * as FileSaver from "file-saver";
+import UploadCsvModal from "../components/UploadCsvModal.tsx";
 
 const ListClient = ({ clients, setClients }) => {
   const [selectedRows, setSelectedRows] = useState<any>([]);
@@ -59,7 +60,6 @@ const ListClient = ({ clients, setClients }) => {
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const jsonData: any = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
       importExcelSheet(token, { jsonData: JSON.stringify(jsonData) })
         .then((response) => {
           toast.success(response?.data?.message, { autoClose: 1000 });
@@ -72,9 +72,6 @@ const ListClient = ({ clients, setClients }) => {
     reader.readAsBinaryString(file);
   };
 
-  const handleFileUpload = () => {
-    fileInputRef.current.click();
-  };
 
   const handleExportClick = () => {
     const columns = [
@@ -90,12 +87,10 @@ const ListClient = ({ clients, setClients }) => {
 
     const data = clients.map((client) =>
       columns.map((column) => client[column])
-    );    
+    );
     const worksheet = XLSX.utils.aoa_to_sheet([columns, ...data]);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Client Data");
-
-    // Use XLSX.writeFile instead of XLSX.write.xlsx
     XLSX.writeFile(workbook, "client_data.xlsx");
   };
 
@@ -110,33 +105,29 @@ const ListClient = ({ clients, setClients }) => {
   };
 
   return (
-    <div>
-      <div className="mb-3">
-        <input
+    <div className="m-3">
+      <div className="mb-3 d-flex">
+        {/* <input
           type="file"
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileInputChange}
-        />
+        /> */}
+        <UploadCsvModal setClients={setClients}/>
         <button
           type="button"
-          className="btn btn-primary me-2"
-          onClick={handleFileUpload}
-        >
-          <FaArrowCircleDown /> Import
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
+          className="btn"
           onClick={handleExportClick}
+          style={{background:"#0d0c55",color:'white'}}
         >
-          <FaAngleDoubleUp /> Export
+          <FaArrowCircleDown />{" "}
+          Import
         </button>
       </div>
       <div className="d-flex justify-content-between">
         <Dropdown>
           <Dropdown.Toggle
-            className="rounded-0 px-3 bg-success-subtle text-emphasis-success border-0 text-dark"
+            className="rounded-0 px-3 bg-light text-emphasis-success border-0 text-dark px-5"
             id="dropdown-basic"
           >
             <FaFilter /> Filter
@@ -166,7 +157,7 @@ const ListClient = ({ clients, setClients }) => {
       <Table responsive>
         <thead className="table-primary">
           <tr>
-            <th></th>
+            <th>Select</th>
             <th>Name</th>
             <th>Designation</th>
             <th>Country</th>
@@ -185,14 +176,17 @@ const ListClient = ({ clients, setClients }) => {
                   onDoubleClick={() =>
                     navigate(`/pages/client-list/${client?.id}`)
                   }
+                  className="cursor-pointer"
                 >
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.includes(client.id)}
-                      onChange={() => handleCheckboxChange(client.id)}
-                      name={"name" + index}
-                    />
+                  <td className="d-flex justify-content-center align-items-center">
+                    <div>
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.includes(client.id)}
+                        onChange={() => handleCheckboxChange(client.id)}
+                        name={"name" + index}
+                      />
+                    </div>
                   </td>
                   <td>{client?.name ?? ""}</td>
                   <td>{client?.designation ?? ""}</td>

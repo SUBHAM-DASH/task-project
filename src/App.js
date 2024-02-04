@@ -17,10 +17,11 @@ import AddClient from "./pages/AddClient.tsx";
 import ListClient from "./pages/ListClient.tsx";
 import NavbarComp from "./components/NavbarComp.tsx";
 import ClientInformation from "./pages/ClientInformation.tsx";
+import "./App.css";
 
 const App = () => {
   return (
-    <div>
+    <div style={{backgroundColor:'#eee',height:'100%',minHeight:'100vh'}}>
       <BrowserRouter>
         <AppContent />
       </BrowserRouter>
@@ -52,7 +53,7 @@ const AppContent = () => {
     <div>
       <ToastContainer />
       {token && <NavbarComp setClients={setClients}/>}
-      <div className="m-4">
+      <div className="">
         <Routes>
           {token ? (
             <>

@@ -38,7 +38,7 @@ const DatePikerComponent = ({ setClients }) => {
     <div>
       <div>
         <button
-          className="btn mb-2 bg-success-subtle text-emphasis-success"
+          className="btn mb-2 bg-light text-emphasis-success"
           onClick={() => setShowPicker(!showPicker)}
         >
           <FaCalendarWeek /> Select Date

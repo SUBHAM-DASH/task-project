@@ -6,7 +6,7 @@ import { getClientDesignationChatDetails } from "../service/clientRequest.ts";
 
 const size = {
   width: 400,
-  height: 220,
+  height: 200,
 };
 
 const StyledText: any = styled("text")(({ theme }) => ({

@@ -1,14 +1,14 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import CanvasJSReact from "@canvasjs/react-charts";
 import { getClientDesignationChatDetails } from "../service/clientRequest.ts";
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const PieChatMain = () => {
+const DonutChart = () => {
   const [dataPoints,setDataPoints] = useState([]);
   const data = [
     {
-      type: "pie",
-      dataPoints: dataPoints
+      type: "doughnut",
+      dataPoints: dataPoints,
     },
   ];
 
@@ -25,18 +25,26 @@ const PieChatMain = () => {
   const options = {
     animationEnabled: true,
     title: {
-      text: "Pie Chart",
+      text: "Client Details",
       fontSize: 16,
     },
     data: data,
+    subtitles: [
+      {
+        text: "Overall",
+        verticalAlign: "center",
+        dockInsidePlotArea: true,
+        fontSize: 20,
+      },
+    ],
     height: 240,
   };
 
   return (
-    <div style={{height:"240px"}}>
+    <div style={{ height: "240px" }}>
       <CanvasJSChart options={options} />
     </div>
   );
 };
 
-export default PieChatMain;
+export default DonutChart;

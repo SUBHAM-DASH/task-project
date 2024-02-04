@@ -221,7 +221,6 @@ exports.deleteMultipleClient = async (req, res) => {
 };
 
 // Filter Client Details
-
 exports.filterDesignationClientDetails = async (req, res) => {
   try {
     const { designation } = req.body;

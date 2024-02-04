@@ -59,16 +59,34 @@ const clientDetailsMonthWise = `
 `;
 
 const clientDetailsDesignationWise = `
+    WITH colors AS (
+        SELECT
+            designation,
+            MAX('#' || substr(md5(random()::text), 1, 6)) AS color
+        FROM
+            (SELECT DISTINCT designation FROM "client") AS unique_designations
+        GROUP BY
+            designation
+    )
     SELECT
-    LEFT(designation, 9) as label,
-    COUNT(*) AS value
-    FROM "client"
-    GROUP BY designation
+        LEFT(c.designation, 9) AS label,
+        COUNT(*) AS y,
+        colors.color
+    FROM
+        "client" c
+    JOIN
+        colors ON c.designation = colors.designation
+    GROUP BY
+        c.designation, colors.color
+
     UNION ALL
+
     SELECT
-    'total' as label,
-    COUNT(*) AS value
-    FROM "client";
+        'total' AS label,
+        COUNT(*) AS y,
+        '#' || substr(md5(random()::text), 1, 6) AS color
+    FROM
+        "client";
 `;
 
 module.exports = {
@@ -77,5 +95,5 @@ module.exports = {
   updateClientQuery,
   searchClientDetailQuery,
   clientDetailsMonthWise,
-  clientDetailsDesignationWise
+  clientDetailsDesignationWise,
 };

@@ -3,11 +3,12 @@ import { Stack } from "@mui/material";
 import { BiFile } from "react-icons/bi";
 import { IoIosConstruct } from "react-icons/io";
 import { FaFlag, FaPhone } from "react-icons/fa";
-import StackedBarChart from "../Chats/BarChat.tsx";
 import PieChat from "../Chats/PieChat.tsx";
 import PieChatMain from "../Chats/PieChatMain.tsx";
 import TableComp from "../components/TableComp.tsx";
 import { getAllClients } from "../service/clientRequest.ts";
+import StackedBarChart from "../Chats/StackedBarChart.tsx";
+import DonutChart from "../Chats/DonutChart.tsx";
 
 const Dashboard = () => {
   const token = localStorage.getItem("task-token");
@@ -28,10 +29,10 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="row">
+      <div className="row m-2">
         <div className="col-4 mb-3">
           <div className="card">
-            <div className="card-body">
+            <div className="card-body h-300px">
               <div className="row">
                 <div className="col-6 mb-3">
                   <div className="card bg-primary-subtle text-emphasis-primary">
@@ -96,8 +97,8 @@ const Dashboard = () => {
         <div className="col-8">
           <div className="card">
             <div className="card-body">
-              <div style={{ width: "100%" }}>
-                <StackedBarChart title={"Database for Clients"} />
+              <div style={{ width: "100%",height:"240px" }}>
+                <StackedBarChart/>
               </div>
             </div>
           </div>
@@ -105,7 +106,12 @@ const Dashboard = () => {
         <div className="col-4">
           <div className="card mb-3">
             <div className="card-body">
-              <PieChat />
+              <DonutChart/>
+            </div>
+          </div>
+          <div className="card">
+            <div className="card-body">
+              <PieChatMain />
             </div>
           </div>
         </div>

@@ -36,7 +36,7 @@ const ClientInformation = () => {
   ];
 
   return (
-    <div>
+    <div className="m-3">
       <div className="fw-bold cursor-pointer mb-4">
         <div onClick={() => navigate(-1)}>
           <FaArrowLeft /> Back

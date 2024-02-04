@@ -24,7 +24,7 @@ const DeleteButtonModal = ({ selectedRows,fetchClients }) => {
   return (
     <>
       <button
-        className="btn bg-success-subtle text-emphasis-success mx-2"
+        className="btn bg-light text-emphasis-success mx-2"
         type="button"
         onClick={() => setShow(true)}
       >

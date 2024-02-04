@@ -3,11 +3,12 @@ const { v4: uuidv4, v5: uuidv5, validate: uuidValidate } = require("uuid");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { insertUserQuery } = require("../sql/user.sql");
+const { sentEmail } = require("../utils/sentEmail");
 
 //Signup user
 exports.signupuser = async (req, res) => {
   try {
-    const { name, email, password, mobileNumber } = req.body;    
+    const { name, email, password, mobileNumber } = req.body;
     if (email && password) {
       const [user] = await executeQueryWithParams(
         `SELECT * FROM "user" WHERE email = $1`,
@@ -75,13 +76,14 @@ exports.loginuser = async (req, res) => {
     const token = jwt.sign({ userId: existUser.id }, process.env.JWT_SECRET, {
       expiresIn: "4d",
     });
-    res
-      .status(200)
-      .json({
-        status: "success",
-        message: "Login Successfully!",
-        token: token,
-      });
+
+    await sentEmail(email,"Authentication Process","Welcome to my world!");
+
+    res.status(200).json({
+      status: "success",
+      message: "Login Successfully!",
+      token: token,
+    });
   } catch (error) {
     return res
       .status(500)

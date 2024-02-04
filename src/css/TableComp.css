@@ -1,0 +1,22 @@
+.table th,
+.table td {
+  border: none; /* Remove all borders from table cells */
+  border-right: 2px solid rgb(21, 21, 107); /* Add right border to each cell */
+}
+
+.table thead th {
+  border: none; /* Remove borders from table header cells */
+  border-right: 2px solid rgb(21, 21, 107);
+  border-bottom: 2px solid rgb(21, 21, 107);
+}
+
+.heading{
+  border: none;
+  border-bottom: 2px solid rgb(21, 21, 107);
+}
+
+
+.table th:last-child,
+.table td:last-child {
+  border-right: none; /* Remove right border from the last column */
+}
